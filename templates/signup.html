@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .signup-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .signup-container input[type="text"],
+        .signup-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-container input[type="text"]:focus,
+        .signup-container input[type="password"]:focus {
+            border-color: #ffc3a0;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 195, 160, 0.5);
+        }
+
+        .signup-container button {
+            background: #ff8a8a;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .signup-container button:hover {
+            background: #ff5e5e;
+        }
+
+        .signup-container p {
+            margin-top: 1rem;
+            color: #555;
+        }
+
+        .signup-container a {
+            color: #ff8a8a;
+            text-decoration: none;
+        }
+
+        .signup-container a:hover {
+            text-decoration: underline;
+        }
+
+        .message-box {
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .message-box ul {
+            list-style-type: none;
+        }
+
+        .message-box li {
+            padding: 0.5rem;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-box .success {
+            border-color: #28a745;
+            color: #155724;
+            background-color: #d4edda;
+        }
+
+        .message-box .danger {
+            border-color: #dc3545;
+            color: #721c24;
+            background-color: #f8d7da;
+        }
+
+        @media (max-width: 600px) {
+            .signup-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form method="POST" action="{{ url_for('signup') }}">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Signup</button>
+        </form>
+
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+
+        <div class="message-box">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</body>
+</html>

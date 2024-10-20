@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .form-row > div {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-row > div:last-child {
+            margin-right: 0;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 60px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar-brand span {
+            color: #F0B90B;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-links li {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+
+        .button-common {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            background-color: #F0B90B;
+            border-radius: 5px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .username {
+            margin-left: 8px;
+        }
+
+        table {
+            width: 320px;
+            border-collapse: collapse;
+            margin: 20px auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F0B90B;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .reset-password-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .reset-password-button {
+            padding: 10px;
+            background-color: #f45c5c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            width: 200px;
+        }
+
+        .reset-password-button:hover {
+            background-color: #f45c5c;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/search" class="navbar-brand">
+            <img src="{{ url_for('static', filename='binance_logo.png') }}" alt="Binance Logo">
+            <span>P2P Trade Details</span>
+        </a>
+        <ul class="navbar-links" style="padding-right: 60px;">
+            <li><a href="/search" class="button button-common">Search</a></li>
+            <li class="dropdown">
+                <a href="#" class="button button-common profile-icon">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="username"> {{ session['username'] }}</span>
+                </a>
+                <div class="dropdown-content">
+                    <a href="/profile">Account</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="profile-page">
+        <h1>Profile</h1>
+        
+        <table>
+            <tr>
+                <th>User</th>
+                <th>{{ user_data.username }}</th>
+            </tr>
+            <tr>
+                <td>Total Trades</td>
+                <td>{{ user_data.total_trades }}</td>
+            </tr>
+            <tr>
+                <td>Total Volume</td>
+                <td>{{ user_data.total_volume }}</td>
+            </tr>
+        </table>
+
+        <div class="reset-password-container">
+            <a href="{{ url_for('reset_password') }}" class="reset-password-button">Reset Password</a>
+        </div>
+    </div>
+</body>
+
+</html>
